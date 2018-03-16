@@ -6,6 +6,8 @@ import jsoneditor
 
 from setuptools import setup, find_packages
 
+with open('VERSION') as f:
+    VERSION = f.read().strip()
 description = 'Django JSON Editor'
 
 with open('README.rst') as f:
@@ -13,7 +15,7 @@ with open('README.rst') as f:
 
 setup(
     name = 'django-jsoneditor',
-    version = jsoneditor.__version__,
+    version = VERSION,
     description = description,
     author = AUTHOR,
     author_email = AUTHOR_EMAIL,
