@@ -22,7 +22,7 @@ except NameError:
     str = str
     unicode = str
     bytes = bytes
-    basestring = (str,bytes)
+    basestring = (str, bytes)
 else:
     # 'unicode' exists, must be Python 2
     str = str
@@ -34,31 +34,36 @@ else:
 class JSONEditor(Textarea):
     class Media:
         js = (
-            getattr(settings,"JSON_EDITOR_JS",settings.STATIC_URL+'jsoneditor/jsoneditor.js'),
             settings.STATIC_URL+'django-jsoneditor/django-jsoneditor.js',
+            getattr(settings, "JSON_EDITOR_JS", settings.STATIC_URL + 'jsoneditor/jsoneditor.js'),
         )
-        css= {'all': ( getattr(settings, "JSON_EDITOR_CSS",settings.STATIC_URL+'jsoneditor/jsoneditor.css'),)}
+        css = {
+            'all': (
+                getattr(settings, "JSON_EDITOR_CSS", settings.STATIC_URL + 'jsoneditor/jsoneditor.css'),
+            )
+        }
 
     def render(self, name, value, attrs=None):
-        if not isinstance(value,basestring):
-           value = json.dumps(value)
-        input_attrs = {'hidden':True}
+        if not isinstance(value, basestring):
+            value = json.dumps(value)
+        input_attrs = {'hidden': True}
         input_attrs.update(attrs)
-        if not 'class' in input_attrs:
+        if 'class' not in input_attrs:
             input_attrs['class'] = 'for_jsoneditor'
         else:
             input_attrs['class'] += ' for_jsoneditor'
-        r = super(JSONEditor,self).render(name, value, input_attrs)
+        r = super(JSONEditor, self).render(name, value, input_attrs)
         div_attrs = {}
         div_attrs.update(attrs)
-        div_attrs.update({'id':(attrs['id']+'_jsoneditor')})
+        div_attrs.update({'id': (attrs['id'] + '_jsoneditor')})
         if version.parse(django.get_version()) >= version.parse("1.11"):
-            final_attrs = self.build_attrs(div_attrs, extra_attrs={'name':name})
+            final_attrs = self.build_attrs(
+                div_attrs, extra_attrs={'name': name})
         else:
             final_attrs = self.build_attrs(div_attrs, name=name)
         r += '''
         <div %(attrs)s></div>
         ''' % {
-            'attrs':flatatt(final_attrs),
+            'attrs': flatatt(final_attrs),
         }
         return mark_safe(r)
