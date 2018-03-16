@@ -1,32 +1,32 @@
+from setuptools import setup
+
 AUTHOR = 'Vsevolod Novikov'
 AUTHOR_EMAIL = 'nnseva@gmail.com'
 URL = 'https://github.com/nnseva/django-jsoneditor'
+DESCRIPTION = 'Django JSON Editor'
 
-import jsoneditor
+with open('README.rst') as f:
+    LONG_DESCRIPTION = f.read().strip()
 
-from setuptools import setup, find_packages
 
 with open('VERSION') as f:
     VERSION = f.read().strip()
-description = 'Django JSON Editor'
 
-with open('README.rst') as f:
-    long_description = f.read()
 
 setup(
     name = 'django-jsoneditor',
     version = VERSION,
-    description = description,
+    description = DESCRIPTION,
     author = AUTHOR,
     author_email = AUTHOR_EMAIL,
     url = URL,
-    long_description = long_description,
+    long_description = LONG_DESCRIPTION,
     packages = [
         'jsoneditor',
         'jsoneditor.fields'
     ],
     package_data = {
-        'jsoneditor':[
+        'jsoneditor': [
             'static/jsoneditor/*.js',
             'static/jsoneditor/*.css',
             'static/jsoneditor/img/*',
