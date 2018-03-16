@@ -1,0 +1,42 @@
+{% set name = "django-jsoneditor" %}
+{% set version = "0.0.13" %}
+{% set build = 0 %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+    path: ../
+
+build:
+  noarch: python
+  number: {{ build }}
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - pip
+
+  run:
+    - python
+    - packaging
+    - django
+
+test:
+  imports:
+    - jsoneditor
+    - jsoneditor.fields
+
+about:
+  home: https://github.com/nnseva/django-jsoneditor
+  summary: 'Django JSON Editor'
+  dev_url: https://github.com/nnseva/django-jsoneditor
+  license: LGPL-3.0
+  license_file: LICENSE
+  license_family: LGPL
+
+extra:
+  recipe-maintainers:
+    - kwilcox
