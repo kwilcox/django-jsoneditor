@@ -27,7 +27,7 @@ django.jQuery(function () {
                     onChange: function () {
                         f.value = JSON.stringify(editor.get());
                     },
-                    mode: 'view',
+                    mode: 'tree',
                     modes: ['view', 'tree', 'code']
                 }, value);
 
